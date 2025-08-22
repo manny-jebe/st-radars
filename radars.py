@@ -17,11 +17,11 @@ matplotlib.rcParams["font.family"] = "Montserrat"
 
 @st.cache_data
 def get_player_df():
-    return pd.read_csv("D:/Coding/Football/!Datasets/2024-25/Top5PlayerData202025.csv")
+    return pd.read_csv("Top5PlayerData202025.csv")
 
 @st.cache_data
 def get_team_df():
-    return pd.read_csv("D:/Coding/Football/!Datasets/2024-25/Top5TeamData202025.csv")
+    return pd.read_csv("Top5TeamData202025.csv")
 
 player_df =get_player_df()
 team_df = get_team_df()
@@ -127,12 +127,12 @@ radar_category = st.sidebar.selectbox(label = "Category",
 
 #grabbing badges
 def get_p1_badge():
-    return plt.imread(f"D:/Coding/Football/Misc/Club Badges/{p1_squad_selection}.png")
+    return plt.imread(f"Club Badges/{p1_squad_selection}.png")
 
 p1_badge = get_p1_badge()
 
 def get_p2_badge():
-    return plt.imread(f"D:/Coding/Football/Misc/Club Badges/{p2_squad_selection}.png")
+    return plt.imread(f"Club Badges/{p2_squad_selection}.png")
 
 p2_badge = get_p2_badge()
 
@@ -477,3 +477,4 @@ st.download_button(
     file_name = filename,
     mime = "image/png"
 )
+
