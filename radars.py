@@ -1,11 +1,3 @@
-#Install required packages
-!pip install streamlit
-!pip install pandas
-!pip install numpy
-!pip install sklearn
-!pip install mplsoccer
-!pip install matplotlib
-
 #Loading packages
 import streamlit as st
 import pandas as pd
@@ -486,6 +478,7 @@ st.download_button(
     file_name = filename,
     mime = "image/png"
 )
+
 
 
 
