@@ -7,15 +7,7 @@ from mplsoccer import Radar, grid
 import matplotlib.pyplot as plt
 import io
 
-
-from matplotlib import font_manager
-font_manager.findSystemFonts(fontpaths=None, fontext="ttf")
-
-import matplotlib
-matplotlib.rcParams["font.family"] = "Montserrat"
-
-
-
+#Loading Data
 @st.cache_data
 def get_player_df():
     return pd.read_csv("Top5PlayerData202025.csv")
@@ -26,15 +18,21 @@ def get_team_df():
 
 player_df =get_player_df()
 team_df = get_team_df()
+
+#Data cleaning and transformation
 team_data = team_df[team_df["Team_or_Opponent"] == "team"]
 df = pd.merge(player_df, team_data[["Season_End_Year", "Comp", "Squad", "Poss"]], how="left", on=["Season_End_Year", "Comp", "Squad"])
 
+#Function to convert to per 90
 def to_per_90(metric, mins_per_90 = df["Mins_Per_90"]):
     return metric/mins_per_90
 
+
+#Function to possession adjust
 def poss_adj(metric, poss = df["Poss"]):
     return metric*(50/poss)
 
+#Filtering out players without required minutes
 df_clean = df[df["Min_Playing"] >= 450]
 
 vars_to_90 = ["Touches_Touches", "Def Pen_Touches", "Def 3rd_Touches", "Mid 3rd_Touches", "Att 3rd_Touches", "Att Pen_Touches", "Live_Touches", "Att_Take", "Succ_Take", "Tkld_Take", "Carries_Carries", "TotDist_Carries", "PrgDist_Carries", "PrgC_Carries", "Final_Third_Carries", "CPA_Carries", "Mis_Carries", "Dis_Carries", "Rec_Receiving", "PrgR_Receiving", "Gls_Standard", "FK_Standard", "PK_Standard", "xG_Expected", "npxG_Expected", "G_minus_xG_Expected", "np:G_minus_xG_Expected", "Att", "Live_Pass", "Dead_Pass", "FK_Pass", "TB_Pass", "Sw_Pass", "Crs_Pass", "Off_Outcomes", "Blocks_Outcomes", "Cmp_Total", "Att_Total", "TotDist_Total", "PrgDist_Total", "Cmp_Short", "Att_Short", "Cmp_Medium", "Att_Medium", "Cmp_Long", "Att_Long", "Ast", "xAG", "xA_Expected", "A_minus_xAG_Expected", "KP", "Final_Third", "PPA", "CrsPA", "PrgP", "PassLive_SCA", "PassDead_SCA", "TO_SCA", "Sh_SCA", "Fld_SCA", "Def_SCA", "Fls", "Fld", "Off", "Crs", "TklW", "PKwon", "PKcon", "OG", "Recov", "Won_Aerial", "Lost_Aerial", "Def 3rd_Tackles", "Mid 3rd_Tackles", "Att 3rd_Tackles", "Tkl_Challenges", "Att_Challenges", "Lost_Challenges", "Blocks_Blocks", "Sh_Blocks", "Pass_Blocks", "Int", "Tkl+Int", "Clr", "Err"]
@@ -478,6 +476,7 @@ st.download_button(
     file_name = filename,
     mime = "image/png"
 )
+
 
 
 
