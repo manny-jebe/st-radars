@@ -127,12 +127,12 @@ radar_category = st.sidebar.selectbox(label = "Category",
 
 #grabbing badges
 def get_p1_badge():
-    return plt.imread(f"Club Badges/{p1_squad_selection}.png")
+    return plt.imread(f"ClubBadges/{p1_squad_selection}.png")
 
 p1_badge = get_p1_badge()
 
 def get_p2_badge():
-    return plt.imread(f"Club Badges/{p2_squad_selection}.png")
+    return plt.imread(f"ClubBadges/{p2_squad_selection}.png")
 
 p2_badge = get_p2_badge()
 
@@ -477,4 +477,5 @@ st.download_button(
     file_name = filename,
     mime = "image/png"
 )
+
 
